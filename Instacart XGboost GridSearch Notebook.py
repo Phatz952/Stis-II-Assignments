@@ -59,7 +59,7 @@
 # 
 # The **"as"** reserved word is to define an alias to the package. The alias help us to call easier a package in our code.
 
-# In[ ]:
+# In[4]:
 
 
 # For data manipulation
@@ -73,15 +73,45 @@ gc.enable()                       # Activate
 # ## 1.2 Load data from the CSV files
 # Instacart provides 6 CSV files, which we have to load into Python. Towards this end, we use the .read_csv() function, which is included in the Pandas package. Reading in data with the .read_csv( ) function returns a DataFrame.
 
-# In[ ]:
+# In[5]:
 
 
-orders = pd.read_csv('../input/instacart-market-basket-analysis/orders.csv' )
-order_products_train = pd.read_csv('../input/instacart-market-basket-analysis/order_products__train.csv')
-order_products_prior = pd.read_csv('../input/instacart-market-basket-analysis/order_products__prior.csv')
-products = pd.read_csv('../input/instacart-market-basket-analysis/products.csv')
-aisles = pd.read_csv('../input/instacart-market-basket-analysis/aisles.csv')
-departments = pd.read_csv('../input/instacart-market-basket-analysis/departments.csv')
+# ## 1.2 Load data from the CSV files
+# Instacart provides 6 CSV files, which we have to load into Python. Towards this end, we use the .read_csv() function, which is included in the Pandas package. Reading in data with the .read_csv( ) function returns a DataFrame.
+# 
+# First we connect to the Kaggle API in order to download the zip file with the 6 CSVs. Then we unzip it in a new folder named input, and we unzip all the zip files.
+
+
+# connect to kaggle api and download files (zip)
+from kaggle.api.kaggle_api_extended import KaggleApi
+api = KaggleApi({"username":"phatz952","key":"3f242319262be0dc1e68af789211a144"})
+api.authenticate()
+files = api.competition_download_files("Instacart-Market-Basket-Analysis")
+
+
+import zipfile
+with zipfile.ZipFile('Instacart-Market-Basket-Analysis.zip', 'r') as zip_ref:
+    zip_ref.extractall('./input')
+
+
+import os
+working_directory = os.getcwd()+'/input'
+os.chdir(working_directory)
+for file in os.listdir(working_directory):   # get the list of files
+    if zipfile.is_zipfile(file): # if it is a zipfile, extract it
+        with zipfile.ZipFile(file) as item: # treat the file as a zip
+           item.extractall()  # extract it in the working directory
+
+
+# In[6]:
+
+
+orders = pd.read_csv('../input/orders.csv' )
+order_products_train = pd.read_csv('../input/order_products__train.csv')
+order_products_prior = pd.read_csv('../input/order_products__prior.csv')
+products = pd.read_csv('../input/products.csv')
+aisles = pd.read_csv('../input/aisles.csv')
+departments = pd.read_csv('../input/departments.csv')
 
 
 # This step results in the following DataFrames:
