@@ -25,8 +25,7 @@
 # 
 # As a result, we want to predict which previously purchased products (prior orders) will be in a user’s next order (train and test orders). 
 # 
-# For the train orders Instacart reveals the results (i.e., the ordered products) while for the test orders we do not have this piece of information. Moreover, the future order of each user can be either train or test meaning that each user will be either a train or a test user. 
-# 
+
 # The setting of the Instacart problem is described in the figure below (orders with yellow color denotes future orders of a user). 
 # 
 # <img src="https://i.imgur.com/S0Miw3m.png" width="350">
